@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { Users } = require("../models");
+const { v4: uuidv4 } = require("uuid");
 
 router.route("/sign-up").post(async (req, res) => {
   try {
@@ -9,8 +10,10 @@ router.route("/sign-up").post(async (req, res) => {
     const count = await Users.count();
 
     // CHANGE THE PRIMARY KEY FROM COUNT TO ANOTHER METHODE
-    user.user_id = "user_" + (count + 1);
+    // user.user_id = "user_" + (count + 1);
     // user.user_id = "user_3";
+
+    user.user_id = uuidv4();
 
     await bcrypt.hash(user.password, 10).then((hash) => {
       user.password = hash;
