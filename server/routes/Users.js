@@ -1,50 +1,47 @@
 const express = require("express");
 const router = express.Router();
 const { Users } = require("../models");
+const authenticate = require("../middlewares/authenticate");
+const authorize = require("../middlewares/authorize");
+const userController = require("../controllers/user");
 
-router
-  .route("/")
+//Get all users in the db
+router.route("/").get(userController.getAllUsers);
 
-  //Get all users in the db
-  .get(async (req, res) => {
-    const allUsers = await Users.findAll();
-    res.json(allUsers);
-  })
-
-  // Create a new user
-  .post(async (req, res) => {
-    const user = req.body;
-    const count = await Users.count();
-
-    // CHANGE THE PRIMARY KEY FROM COUNT TO ANOTHER METHODE
-    user.user_id = "user_" + (count + 1);
-    await Users.create(user);
-    res.json(user);
-  });
+// Get current user
+router.get("/current", authenticate, userController.getCurrentUser);
 
 // Get user by ID
-router.get("/:user_id", async (req, res) => {
-  const user = await Users.findByPk(req.params.user_id);
-  res.json(user);
-});
+router.get("/:user_id", userController.getUserByID);
 
 // Update a user's balance by ID
 // THIS SHOULD BE PERFORMED **ONLY BY AN ADMIN
-router.patch("/:user_id/update-balance", async (req, res) => {
-  const user_id = req.params.user_id;
-  const balance = req.body.balance;
+router.patch(
+  "/:user_id/update-balance",
+  authenticate,
+  authorize,
+  async (req, res) => {
+    try {
+      const user_id = req.params.user_id;
+      const balance = req.body.balance;
 
-  await Users.update(
-    { balance: balance },
-    {
-      where: {
-        user_id: user_id,
-      },
+      await Users.update(
+        { balance: balance },
+        {
+          where: {
+            user_id: user_id,
+          },
+        }
+      );
+
+      const user = await Users.findByPk(req.params.user_id);
+      res.json(user);
+    } catch (err) {
+      res.json(err);
     }
-  );
+  }
+);
 
-  const user = await Users.findByPk(req.params.user_id);
-  res.json(user);
-});
+router.delete("/delete", userController.deleteUser);
 
 module.exports = router;

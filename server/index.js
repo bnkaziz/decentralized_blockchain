@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+const cors = require("./middlewares/cors");
 const userRouter = require("./routes/Users");
 const authRouter = require("./routes/Auth");
 const session = require("./middlewares/session");
 
 // If running behind a proxy
-// application.set("trust proxy", 1);
+// app.set("trust proxy", 1);
+
+app.options("*", cors);
+app.use(cors);
 
 // Database
 const db = require("./models");
@@ -15,7 +18,6 @@ const db = require("./models");
 app.use(session);
 
 app.use(express.json());
-app.use(cors());
 
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
