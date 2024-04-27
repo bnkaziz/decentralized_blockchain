@@ -4,6 +4,8 @@ const { Users } = require("../models");
 const authenticate = require("../middlewares/authenticate");
 const authorize = require("../middlewares/authorize");
 const userController = require("../controllers/user");
+const middlewaresErrors = require("../middlewares/error");
+const sameUser = require("../middlewares/sameUser");
 
 //Get all users in the db
 router.route("/").get(userController.getAllUsers);
@@ -42,6 +44,10 @@ router.patch(
   }
 );
 
+router.patch("/edit", authenticate, sameUser, userController.updateUser);
+
 router.delete("/delete", userController.deleteUser);
+
+router.use(middlewaresErrors);
 
 module.exports = router;

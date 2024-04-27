@@ -27,7 +27,7 @@ const login = async (req, res) => {
     req.session.is_admin = user.is_admin;
     console.log(req.session);
 
-    sessionService.addSessionToUserSet(user.user_id, req.sessionID);
+    await sessionService.addSessionToUserSet(user.user_id, req.sessionID);
 
     res.json({ user_id: user.user_id });
   } catch (err) {
@@ -49,6 +49,9 @@ const signUp = async (req, res) => {
 
     req.session.user_id = user.user_id;
     req.session.is_admin = user.is_admin;
+
+    await sessionService.addSessionToUserSet(user.user_id, req.sessionID);
+
     res.json(user);
   } catch (err) {
     res.json(err);
@@ -56,10 +59,14 @@ const signUp = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  req.session.destroy();
+  try {
+    req.session.destroy();
 
-  res.clearCookie("sessionID", { path: "/" });
-  res.json("You logged out successfully");
+    res.clearCookie("sessionID", { path: "/" });
+    res.json("You logged out successfully");
+  } catch (err) {
+    res.json(err.message);
+  }
 };
 
 module.exports = { login, signUp, logout };
