@@ -5,7 +5,6 @@ const authenticate = (req, res, next) => {
     next(err);
   }
 
-  console.log(req.session);
   next();
 };
 

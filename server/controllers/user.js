@@ -60,9 +60,10 @@ const updateUser = async (req, res) => {
     }
 
     await user.update({
-      email: req.body.email,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
+      email: req.body.email,
+      phone_number: req.body.phone_number,
     });
 
     res.json(user);
@@ -85,6 +86,13 @@ const deleteUser = async (req, res) => {
 
     console.log("User exists, deleteing all his sessions...");
 
+    // If the the user is deleting his own account (not an admin)
+    // then the session data is cleared and cookie is deleted from the browser
+    if (req.body.user_id === req.session.user_id) {
+      req.session.destroy();
+      res.clearCookie("sessionID", { path: "/" });
+    }
+
     await sessionService.deleteAllUserSessions(user.user_id, (err, message) => {
       if (err) {
         console.error("Failed to delete sessions: ", err);
@@ -95,6 +103,7 @@ const deleteUser = async (req, res) => {
 
     console.log("Sessions deleted, deleting the user from the database...");
     await user.destroy();
+
     res.json("User successfully deleted");
   } catch (err) {
     res.json(err);

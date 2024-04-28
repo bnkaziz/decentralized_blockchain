@@ -6,6 +6,7 @@ const authorize = require("../middlewares/authorize");
 const userController = require("../controllers/user");
 const middlewaresErrors = require("../middlewares/error");
 const sameUser = require("../middlewares/sameUser");
+const adminOrSameUser = require("../middlewares/adminOrSameUser");
 
 //Get all users in the db
 router.route("/").get(userController.getAllUsers);
@@ -46,7 +47,7 @@ router.patch(
 
 router.patch("/edit", authenticate, sameUser, userController.updateUser);
 
-router.delete("/delete", userController.deleteUser);
+router.delete("/delete", adminOrSameUser, userController.deleteUser);
 
 router.use(middlewaresErrors);
 

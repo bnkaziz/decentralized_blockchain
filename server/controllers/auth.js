@@ -14,12 +14,16 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      throw Error("There is no user with this email");
+      const err = new Error("There is no user with this email");
+      err.statusCode = 400;
+      throw err;
     }
 
     await bcrypt.compare(password, user.password).then((match) => {
       if (!match) {
-        throw Error("Wrong password!");
+        const err = new Error("Wrong password!");
+        err.statusCode = 400;
+        throw err;
       }
     });
 
@@ -37,7 +41,7 @@ const login = async (req, res) => {
 
 const signUp = async (req, res) => {
   try {
-    const user = req.body;
+    let user = req.body;
 
     user.user_id = uuidv4();
 
@@ -47,12 +51,14 @@ const signUp = async (req, res) => {
 
     await Users.create(user);
 
+    user = await Users.findByPk(user.user_id);
+
     req.session.user_id = user.user_id;
     req.session.is_admin = user.is_admin;
 
     await sessionService.addSessionToUserSet(user.user_id, req.sessionID);
 
-    res.json(user);
+    res.json({ user_id: user.user_id });
   } catch (err) {
     res.json(err);
   }
@@ -60,8 +66,22 @@ const signUp = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
+    // Delete the current session from the user's set of sessions in the session store
+    await sessionService.deleteSessionFromUserSet(
+      req.session.user_id,
+      req.sessionID,
+      (err, message) => {
+        if (err) {
+          console.error("Failed to delete sessions: ", err);
+        } else {
+          console.log(message);
+        }
+      }
+    );
+
     req.session.destroy();
 
+    // Delete the cookie in the client side
     res.clearCookie("sessionID", { path: "/" });
     res.json("You logged out successfully");
   } catch (err) {

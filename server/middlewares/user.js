@@ -13,7 +13,6 @@ const userExists = async (req, res, next) => {
     next(err);
   }
 
-  console.log("no user with this email, next");
   next();
 };
 
