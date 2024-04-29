@@ -20,7 +20,7 @@ router.get("/:user_id", userController.getUserByID);
 // Update a user's balance by ID
 // THIS SHOULD BE PERFORMED **ONLY BY AN ADMIN
 router.patch(
-  "/:user_id/update-balance",
+  "/update-balance/:user_id",
   authenticate,
   authorize,
   async (req, res) => {
@@ -45,9 +45,14 @@ router.patch(
   }
 );
 
-router.patch("/edit", authenticate, sameUser, userController.updateUser);
+router.patch(
+  "/edit/:user_id",
+  authenticate,
+  sameUser,
+  userController.updateUser
+);
 
-router.delete("/delete", adminOrSameUser, userController.deleteUser);
+router.delete("/delete/:user_id", adminOrSameUser, userController.deleteUser);
 
 router.use(middlewaresErrors);
 

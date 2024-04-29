@@ -52,7 +52,7 @@ const getCurrentUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const user = await Users.findByPk(req.body.user_id);
+    const user = await Users.findByPk(req.params.user_id);
 
     if (!user) {
       res.status(400).json("User does not exist!");
@@ -78,7 +78,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const user = await Users.findByPk(req.body.user_id);
+    const user = await Users.findByPk(req.params.user_id);
     if (!user) {
       res.status(400).json("User does not exist");
       return;

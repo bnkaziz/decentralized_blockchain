@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "Zizou.1937",
-    "database": "crypto_db",
-    "host": "127.0.0.1",
+    "username": "sql11702667",
+    "password": "YgQPaqF8bq",
+    "database": "sql11702667",
+    "host": "sql11.freesqldatabase.com",
     "dialect": "mysql"
   },
   "test": {
