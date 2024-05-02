@@ -1,10 +1,30 @@
 const { Users } = require("../models");
 const sessionService = require("../services/session");
+const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
 
 const getAllUsers = async (req, res) => {
   const allUsers = await Users.findAll();
 
   res.json(allUsers);
+};
+
+// Create a user and add it to the database.
+const createUser = async (req, res) => {
+  try {
+    const user = req.body;
+    user.user_id = uuidv4();
+
+    await bcrypt.hash(user.password, 10).then((hash) => {
+      user.password = hash;
+    });
+
+    await Users.create(user);
+
+    res.json({ user_id: user.user_id });
+  } catch (err) {
+    res.json(err);
+  }
 };
 
 const getUserByID = async (req, res) => {
@@ -76,6 +96,56 @@ const updateUser = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  try {
+    const user = await Users.findByPk(req.params.user_id);
+
+    if (!user) {
+      res.status(400).json("User does not exist!");
+      return;
+    }
+
+    console.log(user.password);
+
+    // If the request was sent by the user himself then we compare the
+    // "old_password" field with the actual user's password.
+    if (req.params.user_id === req.session.user_id) {
+      if (!req.body.old_password) {
+        const err = new Error("Old password is needed");
+        err.statusCode = 400;
+        throw err;
+      }
+
+      await bcrypt
+        .compare(req.body.old_password, user.password)
+        .then((match) => {
+          if (!match) {
+            const err = new Error("Passwords don't match!");
+            err.statusCode = 400;
+            throw err;
+          }
+        });
+
+      console.log("comparaison ended");
+    }
+
+    // Either the request was sent by the user and the passwords match
+    // Or the request was sent by an admin.
+    let new_password;
+    await bcrypt.hash(req.body.new_password, 10).then((hash) => {
+      new_password = hash;
+    });
+
+    await user.update({
+      password: new_password,
+    });
+
+    res.json("Password changed successfully");
+  } catch (err) {
+    res.status(err.statusCode).json(err.message);
+  }
+};
+
 const deleteUser = async (req, res) => {
   try {
     const user = await Users.findByPk(req.params.user_id);
@@ -88,7 +158,7 @@ const deleteUser = async (req, res) => {
 
     // If the the user is deleting his own account (not an admin)
     // then the session data is cleared and cookie is deleted from the browser
-    if (req.body.user_id === req.session.user_id) {
+    if (req.params.user_id === req.session.user_id) {
       req.session.destroy();
       res.clearCookie("sessionID", { path: "/" });
     }
@@ -112,9 +182,11 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getAllUsers,
+  createUser,
   getUserByID,
   getUserByEmail,
   getCurrentUser,
+  changePassword,
   deleteUser,
   updateUser,
 };

@@ -1,14 +1,26 @@
 const { Users } = require("../models");
 
 const userExists = async (req, res, next) => {
-  const user = await Users.findOne({
+  let user = await Users.findOne({
     where: {
       email: req.body.email,
     },
   });
 
   if (user) {
-    const err = new Error("A user with this email already exists!");
+    const err = new Error("Email already in use!");
+    err.statusCode = 409;
+    next(err);
+  }
+
+  user = await Users.findOne({
+    where: {
+      phone_number: req.body.phone_number,
+    },
+  });
+
+  if (user) {
+    const err = new Error("Phone number already in use!");
     err.statusCode = 409;
     next(err);
   }
