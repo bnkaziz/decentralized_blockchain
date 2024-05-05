@@ -57,6 +57,10 @@ const getUserByEmail = async (req, res) => {
 const getCurrentUser = async (req, res) => {
   console.log("current");
   try {
+    if (!req.session.user_id) {
+      res.status(400).json("No user connected!");
+    }
+
     const user = await Users.findByPk(req.session.user_id);
 
     if (!user) {

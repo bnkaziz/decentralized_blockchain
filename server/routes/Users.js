@@ -22,7 +22,7 @@ router.post(
 );
 
 // Get current user
-router.get("/current", authenticate, userController.getCurrentUser);
+router.get("/current", userController.getCurrentUser);
 
 // Get user by ID
 router.get("/:user_id", userController.getUserByID);

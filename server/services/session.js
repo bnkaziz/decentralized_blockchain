@@ -10,7 +10,7 @@ const addSessionToUserSet = async (user_id, sessionId) => {
       if (err) {
         console.error("Error adding session to set:", err);
       } else {
-        console.log(`Session ${sessionId} added to set for user ${userId}`);
+        console.log(`Session ${sessionId} added to set for user ${user_id}`);
       }
     }
   );
