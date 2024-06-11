@@ -6,10 +6,10 @@ if (process.env.deployment === "local") {
   redisClient = redis.createClient({
     url: "redis://127.0.0.1:6379",
   });
-} else if (process.env.deployment === "railway") {
-  const railway_redis_url = `redis://default:${process.env.REDIS_PASSWORD}@${process.env.RAILWAY_TCP_PROXY_DOMAIN}:${process.env.RAILWAY_TCP_PROXY_PORT}`;
+} else {
+  // const railway_redis_url = `redis://default:${process.env.REDIS_PASSWORD}@${process.env.RAILWAY_TCP_PROXY_DOMAIN}:${process.env.RAILWAY_TCP_PROXY_PORT}`;
   redisClient = redis.createClient({
-    url: railway_redis_url,
+    url: process.env.REDIS_URL,
   });
 }
 
