@@ -23,19 +23,17 @@ let sequelize;
 //     config
 //   );
 // }
-if (process.env.DEPLOYMENT === "local") {
-  sequelize = new Sequelize(
-    config.db.database,
-    config.db.username,
-    config.db.password,
-    {
-      dialect: "mysql",
-      host: config.db.host,
-      port: config.db.port,
-    }
-  );
-} else if (process.env.DEPLOYMENT === "railway") {
-}
+
+sequelize = new Sequelize(
+  config.db.database,
+  config.db.username,
+  config.db.password,
+  {
+    dialect: "mysql",
+    host: config.db.host,
+    port: config.db.port,
+  }
+);
 
 fs.readdirSync(__dirname)
   .filter((file) => {

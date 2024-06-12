@@ -6,6 +6,8 @@ const authRouter = require("./routes/Auth");
 const adminRouter = require("./routes/Admin");
 const session = require("./middlewares/session");
 
+// Config.js:"start": "node --env-file=.env index.js"
+
 // If running behind a proxy
 // app.set("trust proxy", 1);
 
