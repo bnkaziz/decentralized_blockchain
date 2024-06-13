@@ -17,8 +17,8 @@ module.exports = session({
   resave: false,
   name: "sessionID",
   cookie: {
-    secure: false, // IT SHOULD BE TRUE IN PRODUCTION. If true, only transmits cookie over https.
-    httpOnly: true,
+    secure: true, // IT SHOULD BE TRUE IN PRODUCTION. If true, only transmits cookie over https.
+    // httpOnly: true,
     sameSite: "strict",
     maxAge: 1000 * 60 * 60, // in ms
     domain: process.env.LOCALHOST,
