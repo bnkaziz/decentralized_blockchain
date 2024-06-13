@@ -26,8 +26,10 @@ app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/admin", adminRouter);
 
+const port = process.env.PORT || 3000;
+
 db.sequelize.sync().then(() => {
-  app.listen(9982, () => {
-    console.log("Server running on port: 9982");
+  app.listen(port, "0.0.0.0", () => {
+    console.log("Server running on port: 3000");
   });
 });
