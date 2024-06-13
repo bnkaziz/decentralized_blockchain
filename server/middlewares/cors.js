@@ -1,6 +1,7 @@
 const cors = require("cors");
 
 var whitelist = new Set([
+  "https://decentralizedblockchain-production.up.railway.app",
   "http://example1.com",
   "http://localhost:9982",
   "http://127.0.0.1:9982",
