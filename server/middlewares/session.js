@@ -21,7 +21,7 @@ module.exports = session({
     // httpOnly: true,
     sameSite: "strict",
     maxAge: 1000 * 60 * 60, // in ms
-    domain: process.env.LOCALHOST,
+    // domain: process.env.LOCALHOST,
     path: "/",
   },
 });
