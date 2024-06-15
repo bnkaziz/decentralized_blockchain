@@ -8,8 +8,8 @@ var whitelist = new Set([
   // "http://example1.com",
   // "http://localhost:9982",
   // "http://127.0.0.1:9982",
-  // "http://localhost:3000",
-  // "http://127.0.0.1:3000",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
 ]);
 
 const corsOptions = {
