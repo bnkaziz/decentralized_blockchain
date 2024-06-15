@@ -1,0 +1,404 @@
+/* Global */
+.content-flex {
+  display: flex;
+}
+/* Top Bar */
+.topBar {
+	height: 50px;
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+	justify-content: space-between;
+	background: var(--accent);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.topBar div{
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+.topBar div h1,
+.topBar div i {
+	font-size: 18px;
+	color: var(--textLight);
+}
+.topBar div i{
+	cursor: pointer;
+}
+.topBar a{
+	border: 1px solid var(--textLight2);
+	padding: 5px;
+	color: var(--textLight);
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+/* Side bar */
+.side-bar {
+	background: var(--accent);
+	width: 0px;
+	min-height: calc(100vh - 50px);
+	overflow: hidden;
+	transition: 0.3s;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+	position: fixed;
+	left: 0;
+	z-index: 10;
+}
+.side-bar .item-link {
+  color: var(--textLight);
+  text-decoration: none;
+  font-size: 22px;
+  display: block;
+  margin-bottom: 10px;
+  transition: 0.1s;
+  -webkit-transition: 0.1s;
+  -moz-transition: 0.1s;
+  -ms-transition: 0.1s;
+  -o-transition: 0.1s;
+  padding: 10px;
+}
+.side-bar .item-link i{
+  color: var(--textLight);
+	margin-right: 10px;
+}
+.side-bar .item-link:hover,
+.side-bar .active {
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+	background: rgba(255, 255, 255, 0.1);
+	overflow: hidden;
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	border-left: 1px solid rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(5px);
+	color: var(--textLight2);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+/* Users */
+.dashboard .inside{
+	width: 100%;
+	min-height: calc(100vh - 50px);
+	background: var(--background);
+	transition: 0.3s;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+	overflow: hidden;
+}
+.dashboard .users div {
+	display: grid;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+	overflow-y: hidden;
+	border: none;
+	width: 100%;
+}
+.dashboard .users table {
+  border-collapse: collapse;
+  min-width: 700px;
+  table-layout: fixed;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	overflow: scroll;
+}
+.dashboard .users tr {
+  color: var(--textDark2);
+}
+.dashboard .users th,
+.dashboard .users td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  text-align: center;
+}
+.dashboard .users th {
+  background: rgba(255, 255, 255, 0.11) !important;
+  color: var(--textDark);
+	font-size: 18px;
+}
+.dashboard .users td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+	font-size: 14px;
+}
+.dashboard .users td i{
+  margin: 0 10px;
+}
+/* Create User */
+.createUser {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+.createUser .parent{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.createUser .parent::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(#e91e63, #47599e);
+	clip-path: circle(17% at 75% 67%);
+}
+.createUser .parent::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(#384b97, #e91e63, #e91e63);
+	clip-path: circle(10% at 25% 5%);
+}
+.createUser form {
+	width: 50%;
+	padding: 25px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	z-index: 1;
+}
+.createUser form h1{
+	text-align: center;
+	margin-bottom: 30px;
+	background: linear-gradient(to left, #384b97, #e91e63);
+	background-size: 100%;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-mo-text-fill-color: transparent;
+}
+.createUser form input,
+.createUser form select {
+	padding: 10px 20px;
+	width: 100%;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+.createUser form label {
+	color: var(--textDark2);
+}
+.createUser form button {
+	background-color: var(--primary);
+	color: var(--textLight);
+	font-weight: bold;
+	font-size: 16px;
+	padding: 10px 20px;
+	width: 100%;
+	outline: none;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	cursor: pointer;
+	border: none;
+}
+.createUser form button:hover {
+	color: var(--textLight2);
+	background: var(--secondary);
+}
+.createUser form .error {
+	color: red;
+	font-size: 14px;
+	margin-top: 0;
+}
+
+/* Info User */
+.infoUser {
+	width: 100%;
+	padding: 20px;
+}
+.infoUser .parent{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+}
+.infoUser .parent h1{
+	background: linear-gradient(to left, #384b97, #e91e63);
+	background-size: 100%;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-mo-text-fill-color: transparent;
+	margin-bottom: 30px;
+}
+.infoUser .parent .main{
+	display: flex;
+	min-width: 40%;
+	justify-content: space-around;
+	flex-direction: column;
+}
+.infoUser .parent .main .part{
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	padding: 10px;
+	margin: 10px 0;
+}
+.infoUser .parent .main .part div{
+	display: flex;
+	margin: 10px 0;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+}
+.infoUser .parent .main .part div img{
+	width: 22px;
+	height: 22px;
+}
+.infoUser .parent .main .part div h6{
+	color: var(--textDark);
+	font-size: 18px;
+}
+.infoUser .parent .main .part div p{
+	color: var(--textDark2);
+	font-size: 18px;
+}
+.infoUser .parent .main .part .edit{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+.infoUser .parent .main .part .edit a{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	gap: 10px;
+}
+.infoUser .parent .main .part .edit i{
+	padding: 5px;
+	color: var(--secondary);
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+}
+.infoUser .parent .main .part .edit p{
+	font-size: 22px;
+	color: var(--secondary);
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 10px;
+  }
+	.createUser form{
+		width: 100%;
+	}
+}
+@media (min-width: 576px) {
+  .container {
+    padding: 0 50px;
+  }
+	.createUser form {
+		width: 100%;
+	}
+}
+@media (min-width: 768px) {
+  .container {
+    padding: 0 50px;
+  }
+	.createUser form {
+		width: 75%;
+	}
+	.about {
+		flex-direction: row;
+	}
+	.services {
+		flex-direction: row;
+		width: auto;
+	}
+	.services .part{
+		border: none;
+	}
+	.manage {
+		flex-direction: row;
+	}
+}
+@media (min-width: 992px) {
+  .container {
+    padding: 0 100px;
+  }
+	.footer .container .parent .main {
+		flex-direction: row;
+	}
+}
+@media (min-width: 1200px) {
+  .container {
+    padding: 0 150px;
+  }
+	.createUser form {
+		width: 50%;
+	}
+	.about .part h1 {
+		font-size: 55px;
+	}
+	.about .part h3 {
+		font-size: 30px;
+	}
+	.prices h1 {
+		font-size: 40px;
+	}
+}
+@media (min-width: 1400px) {
+  .container {
+    padding: 0 150px;
+  }
+}
