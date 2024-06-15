@@ -10,6 +10,7 @@ var whitelist = new Set([
   // "http://127.0.0.1:9982",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
+  "https://magical-pegasus-f42cbc.netlify.app",
 ]);
 
 const corsOptions = {
