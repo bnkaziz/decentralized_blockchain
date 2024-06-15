@@ -10,7 +10,8 @@ var whitelist = new Set([
   // "http://127.0.0.1:9982",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
-  "https://centralizedrefundsystem.netlify.app",
+  // "https://centralizedrefundsystem.netlify.app",
+  "https://netlify.app",
 ]);
 
 const corsOptions = {
