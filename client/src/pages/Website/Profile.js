@@ -9,10 +9,8 @@ export default function Profile() {
   const textToCopy = "13J8Sk2NuqMckzyfEgJiiw2uZTXoeRxqt7";
   const [copied, setCopied] = useState(false);
 
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
   const [prices, setPrices] = useState([]);
-  const [balance, setBalance] = useState(0);
+  const [info, setInfo] = useState([]);
   let domain;
   if (process.env.REACT_APP_ENV === "production") {
     domain = process.env.REACT_APP_DOMAIN;
@@ -31,9 +29,8 @@ export default function Profile() {
               withCredentials: true,
             })
             .then((data) => {
-              setFname(data.data.firstname);
-              setLname(data.data.lastname);
-              setBalance(data.data.balance);
+              setInfo(data.data);
+              console.log(info)
               let userId = data.data.user_id;
               if (window.location.pathname.split("/").slice(-1)[0] !== userId) {
                 cookie.remove("identification");
@@ -78,12 +75,12 @@ export default function Profile() {
       </div>
       <div className="right">
         <h6>
-          {price.name === "Bitcoin" ? balance : 0} {price.symbol.toUpperCase()}
+          {price.name === "Bitcoin" ? info.balance : 0} {price.symbol.toUpperCase()}
         </h6>
         <p>
           ${" "}
           {(price.name === "Bitcoin"
-            ? balance * price.current_price
+            ? info.balance * price.current_price
             : 0
           ).toLocaleString()}
         </p>
@@ -120,26 +117,41 @@ export default function Profile() {
         <div className="container">
           <div className="father">
             <div className="information">
-              <h1>
-                {fname} {lname}
-              </h1>
-            </div>
-            <div className="icon">
-              <div onClick={clickdeposit}>
-                <i
-                  className="fa-solid fa-down-long shadow"
-                  style={{ rotate: "180deg" }}
-                ></i>
-                <p>Deposit</p>
+              <div className="listInfo">
+                <div>
+                  <h1>Name:</h1>
+                  <p>{info.firstname} {info.lastname}</p>
+                </div>
+                <div>
+                  <h1>Email:</h1>
+                  <p>{info.email}</p>
+                </div>
+                <div>
+                  <h1>Phone Number:</h1>
+                  <p>{info.phone_number}</p>
+                </div>
+                <div>
+                  <h1>Id:</h1>
+                  <p>{info.user_id}</p>
+                </div>
               </div>
-              <div onClick={clickwith}>
-                <i className="fa-solid fa-down-long shadow"></i>
-                <p>Withdraw</p>
+              <div className="icon">
+                <div onClick={clickdeposit}>
+                  <i
+                    className="fa-solid fa-down-long shadow"
+                    style={{ rotate: "180deg" }}
+                  ></i>
+                  <p>Deposit</p>
+                </div>
+                <div onClick={clickwith}>
+                  <i className="fa-solid fa-down-long shadow"></i>
+                  <p>Withdraw</p>
+                </div>
               </div>
-            </div>
-            <div className="wallet card">
-              <h3>Coins:</h3>
-              <div>{showPrices}</div>
+              <div className="wallet card">
+                <h3>Coins:</h3>
+                <div>{showPrices}</div>
+              </div>
             </div>
           </div>
         </div>
