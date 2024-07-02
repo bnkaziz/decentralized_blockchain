@@ -20,7 +20,7 @@ module.exports = session({
     secure: true, // IT SHOULD BE TRUE IN PRODUCTION. If true, only transmits cookie over https.
     httpOnly: true,
     sameSite: "none",
-    maxAge: 1000 * 60 * 60, // in ms
+    maxAge: 1000 * 60 * 60 * 24 * 30, // in ms (set to 1 month)
     domain: process.env.DOMAIN,
     path: "/",
   },
