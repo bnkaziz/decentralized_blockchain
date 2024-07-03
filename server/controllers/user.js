@@ -58,19 +58,27 @@ const getCurrentUser = async (req, res) => {
   console.log("current");
   try {
     if (!req.session.user_id) {
-      res.status(400).json("No user connected!");
+      const err = new Error("No user connected!");
+      err.statusCode = 400;
+      throw err;
+      // res.status(400).json("No user connected!");
     }
 
     const user = await Users.findByPk(req.session.user_id);
 
     if (!user) {
-      res.status(400).json("User does not exist!");
+      const err = new Error("User does not exist!");
+      err.statusCode = 400;
+      throw err;
+      // res.status(400).json("User does not exist!");
       return;
     }
 
     res.status(200).json(user);
   } catch (err) {
-    res.json(err.message);
+    res.status(err.statusCode).json(err.message);
+
+    // res.json(err.message);
   }
 };
 
