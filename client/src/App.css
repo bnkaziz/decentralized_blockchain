@@ -236,8 +236,8 @@ a {
 .login form label {
 	color: var(--textDark);
 }
-.register form button,
-.login form button {
+.register form .button,
+.login form .button {
 	background: var(--primary);
 	color: var(--textLight);
 	font-weight: bold;
@@ -261,8 +261,18 @@ a {
 	cursor: pointer;
 	border: none;
 }
-.register form button:hover,
-.login form button:hover {
+.register form .passvis,
+.login form .passvis {
+	position: absolute;
+	top: 40%;
+	right: 2%;
+	background: transparent;
+	border: none;
+	color: var(--textDark);
+	cursor: pointer;
+}
+.register form .button:hover,
+.login form .button:hover {
 	color: var(--textLight2);
 	background: var(--accent);
 }
@@ -669,9 +679,9 @@ a {
 .windowWith {
 	display: none;
 	position: fixed;
-	width: 400px;
+	width: 300px;
 	top: 40%;
-	left: calc(50% - 200px);
+	left: calc(50% - 150px);
 	filter: none;
 	overflow: hidden;
 	gap: 10px;
@@ -858,6 +868,10 @@ a {
 	.profile .father .information .listInfo div{
 		margin-left: 15%;
 	}
+	.windowDeposit, .windowWith {
+    width: 400px;
+    left: calc(50% - 200px);
+}
 	.footer .container .parent .main {
 		flex-direction: row;
 	}

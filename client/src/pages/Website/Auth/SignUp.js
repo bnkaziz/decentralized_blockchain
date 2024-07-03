@@ -15,6 +15,14 @@ export default function Register() {
   const [accept, setAccept] = useState(false);
   const [err, setErr] = useState(false);
   const [numberErr, setNumberErr] = useState(false);
+
+  const [shown, setShown] = useState(false);
+  const [shownC, setShownC] = useState(false);
+  const type = shown ? "text" : "password";
+  const typeC = shownC ? "text" : "password";
+  const buttonText = shown ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i> ;
+  const buttonTextC = shownC ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i> ;
+
   let domain;
   if (process.env.REACT_APP_ENV === "production") {
     domain = process.env.REACT_APP_DOMAIN;
@@ -112,27 +120,33 @@ export default function Register() {
                 required
               />
               <label htmlFor="password">Password: </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Password..."
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div style={{position:"relative"}}>
+                <input
+                  id="password"
+                  type= {type}
+                  placeholder="Password..."
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button className="passvis" onClick={(e) => {setShown(!shown);e.preventDefault()}}>{buttonText}</button>
+              </div>
               {password.length < 8 && accept && (
                 <p className="error">Password must be more than 8 char</p>
               )}
               <label htmlFor="passwordCo">Password Confirmation: </label>
-              <input
-                id="passwordCo"
-                type="password"
-                placeholder="Password Confirmation..."
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
-              />
+              <div style={{position:"relative"}}>
+                <input
+                  id="passwordCo"
+                  type={typeC}
+                  placeholder="Password Confirmation..."
+                  value={passwordConfirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                />
+                <button className="passvis" onClick={(e) => {setShownC(!shownC);e.preventDefault()}}>{buttonTextC}</button>
+              </div>
               {numberErr && <p className="error">Password does not match</p>}
               {accept && <p className="error">{err}</p>}
-              <button type="submit">Register</button>
+              <button className="button" type="submit">Register</button>
             </form>
           </div>
         </div>

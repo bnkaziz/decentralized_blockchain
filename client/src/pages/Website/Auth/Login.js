@@ -11,6 +11,11 @@ export default function Login() {
   const [accept, setAccept] = useState(false);
   const [Err, setErr] = useState(false);
   const [Errtext, setErrtext] = useState("");
+
+  const [shown, setShown] = useState(false);
+  const type = shown ? "text" : "password";
+  const buttonText = shown ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i> ;
+
   let domain;
   if (process.env.REACT_APP_ENV === "production") {
     domain = process.env.REACT_APP_DOMAIN;
@@ -72,19 +77,22 @@ export default function Login() {
                 required
               />
               <label htmlFor="password">Password: </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Password..."
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div style={{position:"relative"}}>
+                <input
+                  id="password"
+                  type= {type}
+                  placeholder="Password..."
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button className="passvis" onClick={(e) => {setShown(!shown);e.preventDefault()}}>{buttonText}</button>
+              </div>
               {password.length < 8 && accept && (
                 <p className="error">Password must be more than 8 char</p>
               )}
               {Err && accept && <p className="error">{Errtext}</p>}
               <div style={{ textAlign: "center" }}>
-                <button type="submit">Login</button>
+                <button type="submit" className="button">Login</button>
               </div>
             </form>
           </div>

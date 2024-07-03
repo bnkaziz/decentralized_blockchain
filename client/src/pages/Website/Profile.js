@@ -5,7 +5,6 @@ import axios from "axios";
 import Cookie from "cookie-universal";
 
 export default function Profile() {
-  // const textToCopy = "1NuMSKzfcK6CgPP5CjUNYFimt1P83PX4HF";
   const textToCopy = "13J8Sk2NuqMckzyfEgJiiw2uZTXoeRxqt7";
   const [copied, setCopied] = useState(false);
 
@@ -162,11 +161,16 @@ export default function Profile() {
           <h4>Wallet Address : </h4>
           <i className="fa-solid fa-xmark" onClick={deldeposit}></i>
         </div>
-        <div className="part">
-          <input type="text" value={textToCopy} readOnly />
-          <button onClick={handleCopyClick}>
-            {copied ? "Copied" : "Copy"}
-          </button>
+        <div className="part" style={{flexDirection:'column',gap:'25px'}}>
+          <div style={{width:'100%'}}>
+            <input type="text" value={textToCopy} readOnly style={{textAlign:'center'}}/>
+            <button onClick={handleCopyClick}>
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
+          <div>
+            <img src={require("../../photo/QRWallet.jpg")} />
+          </div>
         </div>
       </div>
       <div className="windowWith card">
