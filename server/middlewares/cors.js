@@ -3,6 +3,7 @@ const cors = require("cors");
 var whitelist = new Set([
   "http://localhost:3000",
   "https://decentralizedblockchain-production.up.railway.app",
+  "https://centralizedrefundsystem.up.railway.app",
   "https://railway.app",
   "https://centralizedrefundsystem.netlify.app",
   "https://netlify.app",
