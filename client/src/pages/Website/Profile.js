@@ -5,7 +5,8 @@ import axios from "axios";
 import Cookie from "cookie-universal";
 
 export default function Profile() {
-  const textToCopy = "13J8Sk2NuqMckzyfEgJiiw2uZTXoeRxqt7";
+  // const textToCopy = "13J8Sk2NuqMckzyfEgJiiw2uZTXoeRxqt7";
+  const textToCopy = "12zKGKAdE7Gcqm5depbtd3wsb2Hf5RZQVQ";
   const [copied, setCopied] = useState(false);
 
   const [prices, setPrices] = useState([]);
@@ -29,7 +30,7 @@ export default function Profile() {
             })
             .then((data) => {
               setInfo(data.data);
-              console.log(info)
+              console.log(info);
               let userId = data.data.user_id;
               if (window.location.pathname.split("/").slice(-1)[0] !== userId) {
                 cookie.remove("identification");
@@ -74,7 +75,8 @@ export default function Profile() {
       </div>
       <div className="right">
         <h6>
-          {price.name === "Bitcoin" ? info.balance : 0} {price.symbol.toUpperCase()}
+          {price.name === "Bitcoin" ? info.balance : 0}{" "}
+          {price.symbol.toUpperCase()}
         </h6>
         <p>
           ${" "}
@@ -119,7 +121,9 @@ export default function Profile() {
               <div className="listInfo">
                 <div>
                   <h1>Name:</h1>
-                  <p>{info.firstname} {info.lastname}</p>
+                  <p>
+                    {info.firstname} {info.lastname}
+                  </p>
                 </div>
                 <div>
                   <h1>Email:</h1>
@@ -161,9 +165,14 @@ export default function Profile() {
           <h4>Wallet Address : </h4>
           <i className="fa-solid fa-xmark" onClick={deldeposit}></i>
         </div>
-        <div className="part" style={{flexDirection:'column',gap:'25px'}}>
-          <div style={{width:'100%'}}>
-            <input type="text" value={textToCopy} readOnly style={{textAlign:'center'}}/>
+        <div className="part" style={{ flexDirection: "column", gap: "25px" }}>
+          <div style={{ width: "100%" }}>
+            <input
+              type="text"
+              value={textToCopy}
+              readOnly
+              style={{ textAlign: "center" }}
+            />
             <button onClick={handleCopyClick}>
               {copied ? "Copied" : "Copy"}
             </button>
