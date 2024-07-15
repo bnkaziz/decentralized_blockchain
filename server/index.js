@@ -9,7 +9,7 @@ const session = require("./middlewares/session");
 // package.json:"start": "node --env-file=.env index.js"
 
 // If running behind a proxy
-app.set("trust proxy", 1);
+if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
 
 app.options("*", cors);
 app.use(cors);

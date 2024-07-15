@@ -17,11 +17,12 @@ module.exports = session({
   resave: false,
   name: "sessionID",
   cookie: {
-    secure: true, // IT SHOULD BE TRUE IN PRODUCTION. If true, only transmits cookie over https.
+    secure: process.env.NODE_ENV === "development" ? false : true, // IT SHOULD BE TRUE IN PRODUCTION. If true, only transmits cookie over https.
     httpOnly: true,
-    sameSite: "none",
+    sameSite: process.env.NODE_ENV === "development" ? "strict" : "none",
     maxAge: 1000 * 60 * 60 * 24 * 30, // in ms (set to 1 month)
-    domain: process.env.DOMAIN,
+    domain:
+      process.env.NODE_ENV === "development" ? "localhost" : process.env.DOMAIN,
     path: "/",
   },
 });
