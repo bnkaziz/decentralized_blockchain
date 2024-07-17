@@ -11,25 +11,26 @@ const login = async (req, res) => {
       where: {
         email: email,
       },
+      attributes: ["user_id", "password", "is_admin"],
     });
 
     if (!user) {
       const err = new Error("There is no user with this email");
-      err.statusCode = 400;
+      // err.statusCode = 400;
       throw err;
     }
 
     await bcrypt.compare(password, user.password).then((match) => {
       if (!match) {
         const err = new Error("Wrong password!");
-        err.statusCode = 400;
+        // err.statusCode = 400;
         throw err;
       }
     });
 
     req.session.user_id = user.user_id;
     req.session.is_admin = user.is_admin;
-    console.log(req.session);
+    // console.log(req.session);
 
     await sessionService.addSessionToUserSet(user.user_id, req.sessionID);
 
@@ -51,7 +52,9 @@ const signUp = async (req, res) => {
 
     await Users.create(user);
 
-    user = await Users.findByPk(user.user_id);
+    user = await Users.findByPk(user.user_id, {
+      attributes: ["user_id", "is_admin"],
+    });
 
     req.session.user_id = user.user_id;
     req.session.is_admin = user.is_admin;

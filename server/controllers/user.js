@@ -4,7 +4,21 @@ const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 
 const getAllUsers = async (req, res) => {
-  const allUsers = await Users.findAll();
+  const allUsers = await Users.findAll({
+    // attributes: [
+    //   "user_id",
+    //   "firstname",
+    //   "lastname",
+    //   "email",
+    //   "phone_number",
+    //   "balance",
+    //   "deposit",
+    //   "is_admin",
+    // ],
+    attributes: {
+      exclude: ["password", "createdAt", "updatedAt"],
+    },
+  });
 
   res.json(allUsers);
 };
@@ -44,6 +58,9 @@ const getUserByEmail = async (req, res) => {
     where: {
       email: email,
     },
+    attributes: {
+      exclude: ["password", "createdAt", "updatedAt"],
+    },
   });
 
   if (!user) {
@@ -64,27 +81,31 @@ const getCurrentUser = async (req, res) => {
       // res.status(400).json("No user connected!");
     }
 
-    const user = await Users.findByPk(req.session.user_id);
+    const user = await Users.findByPk(req.session.user_id, {
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt"],
+      },
+    });
 
     if (!user) {
       const err = new Error("User does not exist!");
       err.statusCode = 400;
       throw err;
-      // res.status(400).json("User does not exist!");
-      return;
     }
 
     res.status(200).json(user);
   } catch (err) {
     res.status(err.statusCode).json(err.message);
-
-    // res.json(err.message);
   }
 };
 
 const updateUser = async (req, res) => {
   try {
-    const user = await Users.findByPk(req.params.user_id);
+    const user = await Users.findByPk(req.params.user_id, {
+      attributes: {
+        exlude: ["password", "createdAt", "updatedAt"],
+      },
+    });
 
     if (!user) {
       res.status(400).json("User does not exist!");

@@ -12,7 +12,7 @@ const redisClient = require("../services/redis");
 
 module.exports = session({
   store: new RedisStore({ client: redisClient }),
-  secret: "crypto-ali",
+  secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
   resave: false,
   name: "sessionID",

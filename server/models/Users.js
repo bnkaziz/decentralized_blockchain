@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0.0,
       allowNull: false,
     },
+    deposit: {
+      type: DataTypes.DOUBLE,
+      defaultValue: 0.0,
+      allowNull: false,
+    },
     is_admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
