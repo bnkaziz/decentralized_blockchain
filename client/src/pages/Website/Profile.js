@@ -5,7 +5,8 @@ import axios from "axios";
 import Cookie from "cookie-universal";
 
 export default function Profile() {
-  const textToCopy = "1HUbM5Krz1i5AZnXLTgobLUPMLfLjZemvv";
+  const textToCopy = "12zKGKAdE7Gcqm5depbtd3wsb2Hf5RZQVQ";
+  // const textToCopy = "1HUbM5Krz1i5AZnXLTgobLUPMLfLjZemvv";
   // const textToCopy = "12zKGKAdE7Gcqm5depbtd3wsb2Hf5RZQVQ";
   const [copied, setCopied] = useState(false);
 
